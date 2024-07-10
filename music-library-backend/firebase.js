@@ -1,15 +1,15 @@
 const { initializeApp } = require("firebase/app");
 const { getFirestore } = require("firebase/firestore");
 
-// Your Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-auth-domain",
-    projectId: "your-project-id",
-    storageBucket: "your-storage-bucket",
-    messagingSenderId: "your-messaging-sender-id",
-    appId: "your-app-id",
-    measurementId: "your-measurement-id"
+  apiKey: "AIzaSyCpDblEx_ivuI9eFis-N5KSFL_TRY1AL64",
+  authDomain: "music-library-fa154.firebaseapp.com",
+  projectId: "music-library-fa154",
+  storageBucket: "music-library-fa154.appspot.com",
+  messagingSenderId: "35550945518",
+  appId: "1:35550945518:web:348f045f645661fb70d3ff",
+  measurementId: "G-FQWK3YX2KC"
 };
 
 // Initialize Firebase

@@ -5,7 +5,7 @@ const db = require('../firebase'); // Adjust path as per your setup
 const ArtistController = require('../controllers/Artists_controller');
 
 // Create a new artist
-router.post('/', async (req, res) => {
+router.post('/artists', async (req, res) => {
     const { name, albums } = req.body;
     const artistController = new ArtistController(db); 
     const createdArtistId = await artistController.create({ name, albums });
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get an artist by ID
-router.get('/:id', async (req, res) => {
+router.get('/artists/:id', async (req, res) => {
     const { id } = req.params;
     const artistController = new ArtistController(db); // Pass db instance here
     const artist = await artistController.getById(id);
@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update an artist by ID
-router.put('/:id', async (req, res) => {
+router.put('/artists/:id', async (req, res) => {
     const { id } = req.params;
     const { name, albums } = req.body;
     const artistController = new ArtistController(db); // Pass db instance here
@@ -42,7 +42,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete an artist by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/artists/:id', async (req, res) => {
     const { id } = req.params;
     const artistController = new ArtistController(db); // Pass db instance here
     const deleted = await artistController.delete(id);
