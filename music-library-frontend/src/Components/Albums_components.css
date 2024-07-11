@@ -1,4 +1,4 @@
-.artists-section {
+.albums-section {
     max-width: 900px;
     margin: 30px auto;
     padding: 20px;
@@ -7,14 +7,16 @@
     border-radius: 5px;
   }
   
-  .artists-section h2 {
+  .albums-section h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #ffffff; /* White text color */
   }
   
-  .artists-section h3 {
+  .albums-section h3 {
     font-size: 20px;
     margin-bottom: 10px;
+    color: #ffffff; /* White text color */
   }
   
   .albums-list {
@@ -32,6 +34,7 @@
   
   .albums-list li strong {
     font-size: 18px;
+    color: #ffffff; /* White text color */
   }
   
   .albums-list li ul {
@@ -42,14 +45,15 @@
   .albums-list li ul li {
     font-size: 14px;
     margin-bottom: 5px;
+    color: #ffffff;
   }
   
   .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    list-style-type: none; /* Remove default list styling */
-    padding: 0; /* Remove default padding */
+    list-style-type: none; 
+    padding: 0; 
   }
   
   .pagination .page-item {
