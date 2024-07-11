@@ -1,4 +1,4 @@
-const Song = require('./Song');
+const Song = require('./Songs');
 
 class Album {
     constructor(title, songs, description) {
