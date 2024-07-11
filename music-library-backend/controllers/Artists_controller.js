@@ -3,13 +3,7 @@ const db = require('../firebase');
 const Album = require('../models/Albums');
 const Artist = require('../models/Artists');
 
-// Map Firestore document data to Artist object
-function mapToArtist(data) {
-  return new Artist(
-    data.name,
-    data.albums.map(album => new Album(album.title, album.songs, album.description))
-  );
-}
+
 
 // Create a new artist
 exports.createArtist = async (req, res) => {
@@ -78,6 +72,12 @@ exports.deleteArtist = async (req, res) => {
   }
 };
 
+function mapToArtist(data) {
+  return new Artist(
+    data.name,
+    data.albums.map(album => new Album(album.title, album.songs, album.description))
+  );
+}
 // Get all artists
 exports.getAllArtists = async (_req, res) => {
   try {
