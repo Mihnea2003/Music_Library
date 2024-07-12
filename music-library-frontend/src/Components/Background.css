@@ -1,0 +1,55 @@
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background-color: #282B30;
+  }
+  
+  .triangle-down,
+  .triangle-up,
+  .triangle-left,
+  .triangle-right,
+  .triangle-middle{
+    position: absolute;
+    width: 10;
+    height: 15;
+  }
+  .triangle-middle{
+    border-left: 10vw solid transparent;
+    border-right: 16vw solid transparent;
+    border-top: 35vh solid #f44336;
+    top: 20%;
+    right:60%
+  }
+  .triangle-down {
+    border-left: 10vw solid transparent;
+    border-right: 16vw solid transparent;
+    border-top: 35vh solid #f44336;
+    top: 70%;
+    right:10%
+  }
+  
+  .triangle-up {
+    border-left: 5vw solid transparent;
+    border-right: 10vw solid transparent;
+    border-bottom: 15vh solid #f44336;
+    top: 0;
+  }
+  
+  .triangle-left {
+    border-top: 25vh solid transparent;
+    border-bottom: 10vh solid transparent;
+    border-right: 20vw solid    #f44336;
+    left: 15;
+    top: 60%
+  }
+  
+  .triangle-right {
+    border-top: 35vh solid transparent;
+    border-bottom: 10vh solid transparent;
+    border-left: 30vw solid #f44336;
+    right: 0;
+  }
+  

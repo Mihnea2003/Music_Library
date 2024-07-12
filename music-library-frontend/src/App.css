@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  min-height: 100vh; /* Minimum viewport height */
+  overflow: hidden;
 }
 
 .App-logo {
@@ -8,7 +12,6 @@
 }
 
 .App-header {
-  background-color: #282B30;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

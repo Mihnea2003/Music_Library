@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Artists from './Components/Artists_components';
 import Albums from './Components/Albums_components';
-
+import Background from './Components/Background';
 function App() {
   const [showArtists, setShowArtists] = useState(false);
   const [showAlbums,setShowAlbums] = useState(false);
@@ -19,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <Background />
       <header className="App-header">
         <h1>Welcome to Your Music Library!</h1>
         <div className="button-container">
