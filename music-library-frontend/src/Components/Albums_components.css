@@ -10,13 +10,13 @@
   .albums-section h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #ffffff; /* White text color */
+    color: #ffffff; 
   }
   
   .albums-section h3 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #ffffff; /* White text color */
+    color: #ffffff; 
   }
   
   .albums-list {
@@ -57,7 +57,7 @@
   }
   
   .pagination .page-item {
-    margin: 0 10px; /* Corrected margin format */
+    margin: 0 10px; 
   }
   
   .pagination .page-link {
@@ -66,7 +66,62 @@
     color: #000;
     border-radius: 20px;
     cursor: pointer;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none; 
+  }
+  .action-buttons button {
+    display: block;
+    display:flex;
+    position:relative;
+    color: #000;
+    padding: 5px 15px;
+    text-align: left;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .album-header {
+    display: flex;
+    align-items: center;
+    margin-right: 100px;
+  }
+  
+  .album-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 200px;
+    flex:1
+  }
+  .action-buttons {
+  
+  margin: 10px;
+  position:relative;
+  font-size: 16px;
+  border-radius: 20px;
+  display:flex;
+  margin-bottom: 100px;
+  } 
+  .album-actions {
+    margin-top: 20px;
+    display:flex;
+  }
+  
+  .album-actions button {
+    display:flex;
+    margin: 10px;
+    padding: 5px 15px;
+    left:100px;
+    font-size: 16px;
+    color: #000;
+    background-color: #f44336;
+    border-radius: 20px;
+  }
+  .album-actions button:hover {
+    background-color: #b71c1c;
+    color:white;
+  }
+  .action-buttons button:hover {
+    background-color: #b71c1c;
   }
   
   .pagination .page-link:hover {

@@ -28,9 +28,9 @@ exports.createAlbum = async (req, res) => {
 
 // Get a single album by ID
 exports.getAlbumById = async (req, res) => {
-  const { album_id } = req.params;
+  const { album_title } = req.params;
   try {
-    const albumRef = doc(db, 'album', album_id);
+    const albumRef = doc(db, 'album', album_title);
     const docSnapshot = await getDoc(albumRef);
     if (!docSnapshot.exists()) {
       res.status(404).json({ message: 'Album not found' });
@@ -66,9 +66,9 @@ exports.updateAlbum = async (req, res) => {
 
 // Delete an album
 exports.deleteAlbum = async (req, res) => {
-  const { album_id } = req.params;
+  const { album_title } = req.params;
   try {
-    const albumRef = doc(db, 'album', album_id);
+    const albumRef = doc(db, 'album', album_title);
     await deleteDoc(albumRef);
     res.status(204).end();
   } catch (error) {
