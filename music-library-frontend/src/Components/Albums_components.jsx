@@ -14,6 +14,7 @@ function Albums() {
   const fetchAlbums = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/albums');
+      console.log(response.data);
       setAlbums(response.data);
     } catch (error) {
       console.error('Error fetching albums:', error);
@@ -38,8 +39,16 @@ function Albums() {
     console.log('Add Album');
   };
 
-  const handleDeleteAlbum = (id) => {
-    console.log(`Delete Album with id: ${id}`);
+  const handleDeleteAlbum = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/albums/${id}`);
+      const updatedAlbums = albums.filter(album => album.id !== id);
+      setAlbums(updatedAlbums);
+      setCurrentPage((prevPage) => (prevPage - 1 + updatedAlbums.length) % updatedAlbums.length);
+      setShowActionButtons(false); // Hide action buttons after deleting
+    } catch (error) {
+      console.error('Error deleting album:', error);
+    }
   };
 
   const handleUpdateAlbum = (id) => {
@@ -59,7 +68,7 @@ function Albums() {
                   <div className="action-buttons">
                     <button onClick={handleAddAlbum}>Add Album</button>
                     <button onClick={() => handleUpdateAlbum(albums[currentPage].title)}>Update Album</button>
-                    <button onClick={() => handleDeleteAlbum(albums[currentPage].title)}>Delete Album</button>
+                    <button onClick={() => handleDeleteAlbum(albums[currentPage].id)}>Delete Album</button>
                   </div>
                 )}
               </div>

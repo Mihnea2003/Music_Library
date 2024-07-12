@@ -51,12 +51,12 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    list-style-type: none; /* Remove default list styling */
-    padding: 0; /* Remove default padding */
+    list-style-type: none; 
+    padding: 0; 
   }
   
   .pagination .page-item {
-    margin: 0 10px; /* Corrected margin format */
+    margin: 0 10px; 
   }
   
   .pagination .page-link {
@@ -65,7 +65,7 @@
     color: #000;
     border-radius: 20px;
     cursor: pointer;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none; 
   }
   
   .pagination .page-link:hover {

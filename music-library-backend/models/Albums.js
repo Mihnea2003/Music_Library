@@ -1,12 +1,19 @@
 const Song = require('./Songs');
 
 class Album {
-    constructor(title, songs, description) {
+    constructor(id,title, songs, description) {
+        this.id = id;
         this.title = title;
         this.songs = songs.map(song => new Song(song.title, song.length));
         this.description = description;
     }
+    getId() {
+        return this.id;
+    }
 
+    setId(id) {
+        this.id=id;
+    }
     getTitle() {
         return this.title;
     }

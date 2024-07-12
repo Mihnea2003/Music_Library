@@ -4,8 +4,8 @@ const Album = require('../models/Albums');
 const Song = require('../models/Songs');
 
 // Map Firestore document data to Album object
-function mapToAlbum(data) {
-  return new Album(data.title, data.songs, data.description);
+function mapToAlbum(doc) {
+  return new Album(doc.id, doc.data().title, doc.data().songs, doc.data().description);
 }
 
 // Create a new album
@@ -18,7 +18,7 @@ exports.createAlbum = async (req, res) => {
       songs,
       description,
     });
-    const newAlbum = new Album(title, songs, description);
+    const newAlbum = new Album(newAlbumRef.id,title, songs, description);
     res.status(201).json(newAlbum);
   } catch (error) {
     console.error('Error creating album:', error);
@@ -66,9 +66,9 @@ exports.updateAlbum = async (req, res) => {
 
 // Delete an album
 exports.deleteAlbum = async (req, res) => {
-  const { album_title } = req.params;
+  const { album_id } = req.params;
   try {
-    const albumRef = doc(db, 'album', album_title);
+    const albumRef = doc(db, 'album', album_id);
     await deleteDoc(albumRef);
     res.status(204).end();
   } catch (error) {
@@ -82,7 +82,7 @@ exports.getAllAlbums = async (_req, res) => {
   try {
     const albumsRef = collection(db, 'album');
     const querySnapshot = await getDocs(albumsRef);
-    const albums = querySnapshot.docs.map(doc => mapToAlbum(doc.data()));
+    const albums = querySnapshot.docs.map(doc => mapToAlbum(doc));
     res.status(200).json(albums);
   } catch (error) {
     console.error('Error fetching albums:', error);
