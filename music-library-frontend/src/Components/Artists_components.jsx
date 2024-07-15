@@ -40,14 +40,17 @@ function Artists() {
   };
 
   const handleDeleteArtist = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/artists/${id}`);
-      const updatedArtists = artists.filter(artist => artist.id !== id);
-      setArtists(updatedArtists);
-      setCurrentPage((prevPage) => (prevPage - 1 + updatedArtists.length) % updatedArtists.length);
-      setShowActionButtons(false); // Hide action buttons after deleting
-    } catch (error) {
-      console.error('Error deleting artist:', error);
+    const confirmDelete = window.confirm("Are you sure you want to proceed?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:3000/api/artists/${id}`);
+        const updatedArtists = artists.filter(artist => artist.id !== id);
+        setArtists(updatedArtists);
+        setCurrentPage((prevPage) => (prevPage - 1 + updatedArtists.length) % updatedArtists.length);
+        setShowActionButtons(false); // Hide action buttons after deleting
+      } catch (error) {
+        console.error('Error deleting artist:', error);
+      }
     }
   };
 
@@ -58,6 +61,7 @@ function Artists() {
   return (
     <div className="artists-section">
       <h2>Artists Section</h2>
+      <button className="add-button" onClick={handleAddArtist}>Add Artist</button>
       {artists.length > 0 && (
         <div>
           <div className="artist-header">
@@ -66,7 +70,6 @@ function Artists() {
               <button onClick={toggleActionButtons}>Actions</button>
               {showActionButtons && (
                 <div className="action-buttons">
-                  <button onClick={handleAddArtist}>Add Artist</button>
                   <button onClick={() => handleUpdateArtist(artists[currentPage].id)}>Update Artist</button>
                   <button onClick={() => handleDeleteArtist(artists[currentPage].id)}>Delete Artist</button>
                 </div>

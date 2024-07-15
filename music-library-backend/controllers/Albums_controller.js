@@ -92,6 +92,15 @@ exports.deleteAlbum = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.deleteAlbumForArtist = async (album_id) => {
+  try {
+    const albumRef = doc(db, 'album', album_id);
+    await deleteDoc(albumRef);
+  } catch (error) {
+    console.error('Error deleting album:', error);
+    throw new Error(error.message); // Propagate error up the chain
+  }
+};
 
 // Get all albums
 exports.getAllAlbums = async (_req, res) => {

@@ -2,7 +2,7 @@ const { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } = requi
 const db = require('../firebase');
 const Album = require('../models/Albums');
 const Artist = require('../models/Artists');
-const { createAlbumForArtists } = require('./Albums_controller');
+const { createAlbumForArtists,deleteAlbumForArtist } = require('./Albums_controller');
 
 
 // Create a new artist
@@ -93,10 +93,35 @@ exports.deleteArtist = async (req, res) => {
   const { artist_id } = req.params;
   try {
     const artistRef = doc(db, 'artist', artist_id);
+
+    // Get the artist document to access the albums
+    const artistSnapshot = await getDoc(artistRef);
+    if (!artistSnapshot.exists()) {
+      return res.status(404).json({ message: 'Artist not found' });
+    }
+
+    const artistData = artistSnapshot.data();
+    const albums = artistData.albums;
+
+    // Delete each album associated with the artist using deleteAlbum function
+    const deleteAlbumPromises = albums.map(async (album) => {
+      try {
+        await deleteAlbumForArtist(album.albumId);
+      } catch (error) {
+        console.error('Error deleting album:', error);
+        throw new Error(error.message); // Propagate error up the chain
+      }
+    });
+
+    // Wait for all album deletion promises to resolve
+    await Promise.all(deleteAlbumPromises);
+
+    // Now delete the artist document
     await deleteDoc(artistRef);
+
     res.status(204).end();
   } catch (error) {
-    console.error('Error deleting artist:', error);
+    console.error('Error deleting artist and associated albums:', error);
     res.status(500).json({ message: error.message });
   }
 };

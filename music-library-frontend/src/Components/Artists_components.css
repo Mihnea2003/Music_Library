@@ -88,7 +88,20 @@
     border: none;
     cursor: pointer;
   }
-  
+  .artist-actions button:hover {
+    color: #fff;
+    background-color: #b71c1c;
+  }
+  .add-button {
+    margin-left: 10px; /* Adjust spacing between action buttons */
+    padding: 5px 15px;
+    font-size: 16px;
+    color: #000;
+    background-color: #f44336;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
   .action-buttons {
     display: flex;
     flex-direction: column;

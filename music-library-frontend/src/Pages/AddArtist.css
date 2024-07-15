@@ -1,0 +1,105 @@
+/* Parent container */
+.add-artist-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensures full viewport height */
+  }
+  
+  /* Add-artist-form styling */
+  .add-artist-form {
+    max-width: 900px;
+    padding: 20px;
+    background-color: #282B30;
+    border: 1px solid #f44336;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow for better visual effect */
+  }
+  
+  /* Input container styling */
+  .input-container {
+    margin-bottom: 10px;
+  }
+  
+  /* Label styling */
+  .input-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  
+  /* Input field styling */
+  .input-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #f44336; /* Border color */
+    border-radius: 4px;
+    background-color: #282B30; /* Same color as the box */
+    color: #fff; /* Text color */
+  }
+  
+  .input-container input[type="text"]:focus {
+    outline: none;
+    border-color: #f44336;
+  }
+  
+  /* Album container styling */
+  .album-container {
+    margin-bottom: 20px;
+  }
+  
+  .album-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  
+  .album-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #f44336; /* Border color */
+    border-radius: 4px;
+    background-color: #282B30; /* Same color as the box */
+    color: #fff; /* Text color */
+    margin-bottom: 5px;
+  }
+  
+  .album-container input[type="text"]:focus {
+    outline: none;
+    border-color: #f44336;
+  }
+  
+  /* Button styling */
+  .add-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #000;
+    background-color: #f44336;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    color: #fff;
+    background-color: #b71c1c;
+  }
+  
+  .remove-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .remove-button:hover {
+    background-color: #b71c1c;
+  }
+  
