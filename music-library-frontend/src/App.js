@@ -1,36 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Artists from './Components/Artists_components';
-import Albums from './Components/Albums_components';
-import Background from './Components/Background';
+import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import AddArtist from './Pages/AddArtist';
+import Home from './Pages/Home';
 function App() {
-  const [showArtists, setShowArtists] = useState(false);
-  const [showAlbums,setShowAlbums] = useState(false);
-
-  const handleShowArtists = () => {
-    setShowArtists(true); 
-    setShowAlbums(false);
-  };
-
-  const handleShowAlbums = () => {
-    setShowArtists(false); 
-    setShowAlbums(true);
-  };
-
   return (
-    <div className="App">
-      <Background />
-      <header className="App-header">
-        <h1>Welcome to Your Music Library!</h1>
-        <div className="button-container">
-        <button className="App-button" onClick={handleShowArtists}>Artists</button>
-        <button className="App-button" onClick={handleShowAlbums}>Albums</button>
-        </div>
-        <div className="horizontal-line"></div>
-        {showArtists && <Artists />}
-        {showAlbums && <Albums/>}
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route index element={<Home/>}/>
+      <Route path="/add-artist" element={<AddArtist/>}/>
+    </Routes>
+    </BrowserRouter>
   );
 }
 
