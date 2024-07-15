@@ -19,10 +19,26 @@ exports.createAlbum = async (req, res) => {
       description,
     });
     const newAlbum = new Album(newAlbumRef.id,title, songs, description);
-    res.status(201).json(newAlbum);
+    return newAlbum;
   } catch (error) {
     console.error('Error creating album:', error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.createAlbumForArtists = async (title, songs, description) => {
+  try {
+    const albumsRef = collection(db, 'album');
+    const newAlbumRef = await addDoc(albumsRef, {
+      title,
+      songs,
+      description,
+    });
+    const newAlbum = new Album(newAlbumRef.id, title, songs, description);
+    return newAlbum;
+  } catch (error) {
+    console.error('Error creating album:', error);
+    throw error;
   }
 };
 

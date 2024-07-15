@@ -2,7 +2,7 @@ const { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } = requi
 const db = require('../firebase');
 const Album = require('../models/Albums');
 const Artist = require('../models/Artists');
-
+const { createAlbumForArtists } = require('./Albums_controller');
 
 
 // Create a new artist
@@ -12,9 +12,38 @@ exports.createArtist = async (req, res) => {
     const artistsRef = collection(db, 'artist');
     const newArtistRef = await addDoc(artistsRef, {
       name,
-      albums,
+      albums: [] // Initialize with an empty array for storing album data
     });
-    const newArtist = new Artist(name, albums);
+
+    const newArtist = new Artist(newArtistRef.id, name, []);
+
+    // Add albums to Firebase and collect their data
+    const albumData = albums.map(async (albumData) => {
+      try {
+        const { title, songs, description } = albumData;
+        const newAlbumRef = await createAlbumForArtists(title, songs, description);
+
+        // Collect album data to store in artist document
+        const albumDoc = {
+          title,
+          songs,
+          description,
+          albumId: newAlbumRef.id 
+        };
+
+        newArtist.albums.push(albumDoc);
+      } catch (error) {
+        console.error('Error creating album:', error);
+        throw new Error(error.message); // Propagate error up the chain
+      }
+    });
+
+    // Wait for all album creation promises to resolve
+    await Promise.all(albumData);
+
+    // Update the artist document with album data
+    await updateDoc(doc(db, 'artist', newArtistRef.id), { albums: newArtist.albums });
+
     res.status(201).json(newArtist);
   } catch (error) {
     console.error('Error creating artist:', error);
@@ -72,21 +101,32 @@ exports.deleteArtist = async (req, res) => {
   }
 };
 
-function mapToArtist(data) {
+function mapToArtist(doc) {
+  const data = doc.data();
   return new Artist(
+    doc.id,
     data.name,
-    data.albums.map(album => new Album(album.title, album.songs, album.description))
+    data.albums.map(album => new Album(album.albumId, album.title, album.songs, album.description))
   );
 }
 // Get all artists
-exports.getAllArtists = async (_req, res) => {
+exports.getAllArtists = async (req, res) => {
   try {
     const artistsRef = collection(db, 'artist');
-    const querySnapshot = await getDocs(artistsRef);
-    const artists = querySnapshot.docs.map(doc => mapToArtist(doc.data()));
+    const artistsSnapshot = await getDocs(artistsRef);
+
+    const artists = artistsSnapshot.docs.map((doc) => {
+      const artistData = doc.data();
+      return {
+        id: doc.id,
+        name: artistData.name,
+        albums: artistData.albums
+      };
+    });
+
     res.status(200).json(artists);
   } catch (error) {
-    console.error('Error fetching artists:', error);
-    res.status(500).json({ message: error.message });
+    console.error('Error retrieving artists:', error);
+    res.status(500).json({ error: error.message });
   }
 };

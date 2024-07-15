@@ -14,6 +14,7 @@ function Artists() {
     try {
       const response = await axios.get('http://localhost:3000/api/artists');
       setArtists(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching artists:', error);
     }

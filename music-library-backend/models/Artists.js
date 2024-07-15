@@ -1,9 +1,16 @@
 const Album = require('./Albums');
 
 class Artist {
-    constructor(name, albums) {
+    constructor(id,name, albums) {
+        this.id = id;
         this.name = name;
         this.albums = albums.map(album => new Album(album.title, album.songs, album.description));
+    }
+    getid(){
+        return this.id;
+    }
+    setId(id){
+        this.id=id;
     }
 
     getName() {
