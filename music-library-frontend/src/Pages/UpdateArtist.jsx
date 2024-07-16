@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './UpdateArtist.css'; // Import your CSS file
-import Background from '../Components/Background'; // Import your Background component
+import './UpdateArtist.css'; 
+import Background from '../Components/Background'; 
 import { useNavigate } from 'react-router-dom';
 
 const UpdateArtist = () => {
-  const { id } = useParams(); // Retrieve artist ID from URL params
+  const { id } = useParams(); 
   const [artist, setArtist] = useState(null);
   const [artistName, setArtistName] = useState('');
   const [albums, setAlbums] = useState([]);
@@ -33,9 +33,9 @@ const UpdateArtist = () => {
     const list = [...albums];
   
     if (name.startsWith('albumTitle')) {
-      const albumTitle = value.trim(); // Trim to remove leading/trailing spaces
+      const albumTitle = value.trim(); 
   
-      // Only update if the trimmed value is not empty
+      
       if (albumTitle !== '') {
         list[albumIndex].title = albumTitle;
         setAlbums(list);
@@ -97,7 +97,7 @@ const UpdateArtist = () => {
   };
 
   if (!artist) {
-    return <div>Loading...</div>; // Add loading state if artist details are being fetched
+    return <div>Loading...</div>; 
   }
 
   return (
