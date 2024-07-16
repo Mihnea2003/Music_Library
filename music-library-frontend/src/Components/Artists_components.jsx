@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Artists_components.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,9 @@ function Artists() {
   const [currentPage, setCurrentPage] = useState(0);
   const [showActionButtons, setShowActionButtons] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,19 +21,19 @@ function Artists() {
     try {
       const response = await axios.get('http://localhost:3000/api/artists');
       setArtists(response.data);
-      console.log(response.data);
+      setSearchResults(response.data); // Set initial search results to all artists
     } catch (error) {
       console.error('Error fetching artists:', error);
     }
   };
 
   const nextPage = () => {
-    setCurrentPage((prevPage) => (prevPage + 1) % artists.length);
+    setCurrentPage((prevPage) => (prevPage + 1) % searchResults.length);
     setShowActionButtons(false); // Hide action buttons when changing page
   };
 
   const prevPage = () => {
-    setCurrentPage((prevPage) => (prevPage - 1 + artists.length) % artists.length);
+    setCurrentPage((prevPage) => (prevPage - 1 + searchResults.length) % searchResults.length);
     setShowActionButtons(false); // Hide action buttons when changing page
   };
 
@@ -50,6 +52,7 @@ function Artists() {
         await axios.delete(`http://localhost:3000/api/artists/${id}`);
         const updatedArtists = artists.filter((artist) => artist.id !== id);
         setArtists(updatedArtists);
+        setSearchResults(updatedArtists);
         setCurrentPage((prevPage) => (prevPage - 1 + updatedArtists.length) % updatedArtists.length);
         setShowActionButtons(false); // Hide action buttons after deleting
       } catch (error) {
@@ -59,50 +62,112 @@ function Artists() {
   };
 
   const handleUpdateArtist = (id) => {
-    console.log(`Update Artist with id: ${id}`);
+    navigate('/update-artist');
   };
 
-  // Implement search logic
-  useEffect(() => {
-    const filteredArtists = artists.filter((artist) =>
-      artist.name.toLowerCase().includes(searchInput.toLowerCase())
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchInput(query);
+
+    const filteredSuggestions = artists
+      .map(artist => artist.name)
+      .filter(name => name.toLowerCase().includes(query.toLowerCase()));
+
+    setSuggestions(filteredSuggestions);
+
+    const filteredArtists = artists.filter(artist =>
+      artist.name.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(filteredArtists);
-  }, [searchInput, artists]);
+    setCurrentPage(0); 
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchInput(suggestion);
+    setSuggestions([]);
+
+    const filteredArtists = artists.filter(artist =>
+      artist.name.toLowerCase().includes(suggestion.toLowerCase())
+    );
+    setSearchResults(filteredArtists);
+    setCurrentPage(0); 
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+      if (suggestions.length > 0) {
+        event.preventDefault();
+        const index = Math.min(suggestions.length - 1, suggestions.indexOf(searchInput) + 1);
+        setSearchInput(suggestions[index]);
+      }
+    } else if (event.key === 'ArrowUp') {
+      if (suggestions.length > 0) {
+        event.preventDefault();
+        const index = Math.max(0, suggestions.indexOf(searchInput) - 1);
+        setSearchInput(suggestions[index]);
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setSuggestions([]);
+    }, 100);
+  };
 
   return (
-    <div className="artists-section">
+    <div className="artists-section" style={{ marginTop: '20px' }}>
+      <div className="search-box-artist">
+        <input
+          type="text"
+          placeholder="Search artists..."
+          value={searchInput}
+          onChange={handleSearch}
+          onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
+          ref={inputRef}
+        />
+        {suggestions.length > 0 && (
+          <ul className="suggestions">
+            {suggestions.map((suggestion, index) => (
+              <li
+                key={index}
+                className={suggestion === searchInput ? 'active' : ''}
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
       <h2>Artists Section</h2>
       <button className="add-button" onClick={handleAddArtist}>
         Add Artist
       </button>
+
       {artists.length > 0 && (
         <div>
-          <input
-            type="text"
-            placeholder="Search artists"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
           {searchResults.length === 0 && <p>No results found.</p>}
           {searchResults.length > 0 && (
             <div>
-              <div className="artist-header">
-                <h3 className="artist-name">{searchResults[currentPage].name}</h3>
-                <div className="artist-actions">
-                  <button onClick={toggleActionButtons}>Actions</button>
-                  {showActionButtons && (
-                    <div className="action-buttons">
-                      <button onClick={() => handleUpdateArtist(searchResults[currentPage].id)}>
-                        Update Artist
-                      </button>
-                      <button onClick={() => handleDeleteArtist(searchResults[currentPage].id)}>
-                        Delete Artist
-                      </button>
-                    </div>
-                  )}
-                </div>
+              <h3 className="artist-name">{searchResults[currentPage].name}</h3>
+
+              <div className="artist-actions">
+                <button onClick={toggleActionButtons}>Actions</button>
+                {showActionButtons && (
+                  <div className="action-buttons">
+                    <button onClick={() => handleUpdateArtist(searchResults[currentPage].id)}>
+                      Update Artist
+                    </button>
+                    <button onClick={() => handleDeleteArtist(searchResults[currentPage].id)}>
+                      Delete Artist
+                    </button>
+                  </div>
+                )}
               </div>
+
               <ul>
                 {searchResults[currentPage].albums.map((album, idx) => (
                   <li key={idx}>
@@ -117,6 +182,7 @@ function Artists() {
                   </li>
                 ))}
               </ul>
+
               {searchResults.length > 1 && (
                 <nav>
                   <ul className="pagination">

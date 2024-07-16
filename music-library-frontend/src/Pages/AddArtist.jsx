@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AddArtist.css';
-import Background from '../Components/Background';
+import Background from '../Components/Background'; 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -68,15 +68,15 @@ const AddArtist = () => {
       setAlbums([{ albumTitle: '', songs: [{ title: '', length: '' }], description: '' }]);
     } catch (error) {
       console.error('Error creating artist:', error);
-      // Handle error state or display error message to user
     }
   };
 
   return (
     <div>
-      <Background></Background>
       <div className="add-artist-container">
+      <Background />
         <div className="add-artist-form">
+        <h2>Add a new artist</h2>
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <label htmlFor="name">Artist Name:</label>

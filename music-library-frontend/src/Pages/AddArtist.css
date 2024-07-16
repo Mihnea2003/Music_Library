@@ -1,42 +1,45 @@
-/* Parent container */
 .add-artist-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Ensures full viewport height */
-  }
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box; 
+}
+
+.add-artist-form {
+  max-width: 900px;
+  padding: 20px;
+  background-color: #282B30;
+  border: 1px solid #f44336;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.add-artist-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color:#fff
+}
   
-  /* Add-artist-form styling */
-  .add-artist-form {
-    max-width: 900px;
-    padding: 20px;
-    background-color: #282B30;
-    border: 1px solid #f44336;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow for better visual effect */
-  }
-  
-  /* Input container styling */
   .input-container {
     margin-bottom: 10px;
   }
   
-  /* Label styling */
   .input-container label {
     display: block;
     margin-bottom: 5px;
     color: #fff;
   }
   
-  /* Input field styling */
   .input-container input[type="text"] {
     width: 100%;
-    padding: 8px;
+    padding: 8px 5px;
     font-size: 16px;
-    border: 1px solid #f44336; /* Border color */
+    border: 1px solid #f44336; 
     border-radius: 4px;
-    background-color: #282B30; /* Same color as the box */
-    color: #fff; /* Text color */
+    background-color: #282B30; 
+    color: #fff; 
   }
   
   .input-container input[type="text"]:focus {
@@ -44,7 +47,6 @@
     border-color: #f44336;
   }
   
-  /* Album container styling */
   .album-container {
     margin-bottom: 20px;
   }
@@ -57,12 +59,12 @@
   
   .album-container input[type="text"] {
     width: 100%;
-    padding: 8px;
+    padding: 8px 5px;
     font-size: 16px;
-    border: 1px solid #f44336; /* Border color */
+    border: 1px solid #f44336;
     border-radius: 4px;
-    background-color: #282B30; /* Same color as the box */
-    color: #fff; /* Text color */
+    background-color: #282B30; 
+    color: #fff; 
     margin-bottom: 5px;
   }
   
@@ -71,7 +73,6 @@
     border-color: #f44336;
   }
   
-  /* Button styling */
   .add-button {
     margin: 10px;
     padding: 10px 20px;

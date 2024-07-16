@@ -1,11 +1,63 @@
 .albums-section {
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 1000px;
+  margin: 20px auto;
   padding: 20px;
   background-color: #282b30;
   border: 1px solid #f44336;
   border-radius: 5px;
   color: #ffffff;
+}
+
+.search-box {
+  position: absolute;
+  width: 100%;
+  top:-20px;
+  right:260px;
+  max-width: 200px; 
+  margin: 120px auto;
+  background-color: #282b30;
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-box input {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; 
+  border: none;
+  background-color: transparent; 
+  color: #ffffff;
+  padding: 10px; 
+  font-size: 16px; 
+  outline: none; 
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 100%;
+  max-height: 200px; 
+  overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #282b30;
+  border: 1px solid #f44336;
+  border-top: none;
+  z-index: 1000; 
+}
+
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #f44336;
+}
+
+.suggestions li:hover,
+.suggestions li.active {
+  background-color: #f44336;
+  color:#000;
 }
 
 .albums-section h2 {
@@ -16,6 +68,7 @@
 .albums-section h3.album-title {
   font-size: 20px;
   margin-bottom: 10px;
+  color: #f44336;
 }
 
 .album-header {
@@ -26,41 +79,6 @@
 .album-title {
   font-size: 20px;
   font-weight: bold;
-  margin-right: 20px; /* Adjust spacing between title and buttons */
+  margin-right: 20px; 
 }
 
-.album-actions {
-  display: flex;
-  align-items: center;
-  margin-left: auto; /* Pushes the action buttons to the right */
-}
-
-.album-actions button {
-  margin-left: 10px; /* Adjust spacing between action buttons */
-  padding: 5px 15px;
-  font-size: 16px;
-  color: #000;
-  background-color: #f44336;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-}
-
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  margin: 10px;
-  z-index: 10;
-  right: 28%; /* Aligns the action buttons to the right */
-}
-
-.action-buttons button {
-  padding: 5px 15px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #f44336;
-  border-radius: 20px;
-  width: 100%;
-  bottom:20px
-}
