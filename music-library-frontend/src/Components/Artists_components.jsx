@@ -62,7 +62,7 @@ function Artists() {
   };
 
   const handleUpdateArtist = (id) => {
-    navigate('/update-artist');
+    navigate(`/update-artist/${id}`);
   };
 
   const handleSearch = (event) => {

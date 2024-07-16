@@ -53,20 +53,28 @@ exports.createArtist = async (req, res) => {
 
 // Get a single artist by ID
 exports.getArtistById = async (req, res) => {
-  const { artist_id } = req.params;
+  const { artist_id } = req.params; 
   try {
     const artistRef = doc(db, 'artist', artist_id);
     const docSnapshot = await getDoc(artistRef);
+
     if (!docSnapshot.exists()) {
-      res.status(404).json({ message: 'Artist not found' });
-    } else {
-      const artistData = docSnapshot.data();
-      const artist = mapToArtist(artistData);
-      res.status(200).json(artist);
+      return res.status(404).json({ message: 'Artist not found' });
     }
+
+    const artistData = docSnapshot.data(); 
+
+    
+    const artist = {
+      id: docSnapshot.id,
+      name: artistData.name,
+      albums: artistData.albums 
+    };
+
+    res.status(200).json(artist); 
   } catch (error) {
     console.error('Error fetching artist:', error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 

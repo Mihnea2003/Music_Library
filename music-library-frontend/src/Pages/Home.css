@@ -1,8 +1,8 @@
 .App {
     text-align: center;
     position: relative;
-    width: 100vw; /* Full viewport width */
-    min-height: 100vh; /* Minimum viewport height */
+    width: 100vw;
+    min-height: 100vh; 
     overflow: hidden;
   }
   

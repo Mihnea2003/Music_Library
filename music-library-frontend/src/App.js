@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route index element={<Home/>}/>
       <Route path="/add-artist" element={<AddArtist/>}/>
-      <Route path="/update-artist" element={<UpdateArtist/>}/>
+      <Route path="/update-artist/:id" element={<UpdateArtist/>}/>
     </Routes>
     </BrowserRouter>
   );
